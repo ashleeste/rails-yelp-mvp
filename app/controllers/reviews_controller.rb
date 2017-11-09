@@ -1,30 +1,40 @@
 class ReviewsController < ApplicationController
-   def index
-    @reviews = Reviews.all
+     def index
+    @restaurants = Restaurant.all
   end
 
   def show
-    @reviews = Reviews.find(params[:id])
+    @restaurant = Restaurant.find(params[:id])
   end
 
   def new
-    @reviews = Reviews.new
+    @restaurant = Restaurant.new
   end
 
   def create
+    @restaurant = Restaurant.new(restaurant_params)
+    @restaurant.save
   end
 
   def update
-    @reviews = Reviews.find(params[:id])
+    @restaurant = Restaurant.find(params[:id])
+    @restaurant.update(restaurant_params)
+
   end
 
   def edit
-    @reviews = Reviews.find(params[:id])
+    @restaurant = Restaurant.find(params[:id])
   end
 
 
   def destroy
-    @reviews = Reviews.find(params[:id])
-    @reviews.destroy
+    @restaurant = Restaurant.find(params[:id])
+    @restaurant.destroy
+  end
+
+  private
+
+  def restaurant_params
+    params.require(:restaurant).permit(:name, :address, :category, :review)
   end
 end

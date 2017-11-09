@@ -12,20 +12,30 @@ class RestaurantsController < ApplicationController
   end
 
   def create
+    @restaurant = Restaurant.new(restaurant_params)
+    @restaurant.save
   end
 
   def update
-    @restaurant = Restaurant.find(params[:id])
+    @restaurants = Restaurant.find(params[:id])
+    @restaurants.update(restaurant_params)
+
   end
 
   def edit
-    @restaurant = Restaurant.find(params[:id])
+    @restaurants = Restaurant.find(params[:id])
   end
 
 
   def destroy
-    @restaurant = Restaurant.find(params[:id])
-    @restaurant.destroy
+    @restaurants = Restaurant.find(params[:id])
+    @restaurants.destroy
+  end
+
+  private
+
+  def restaurant_params
+    params.require(:restaurant).permit(:name, :address, :category, :review)
   end
 
 
